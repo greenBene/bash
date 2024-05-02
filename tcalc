@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+
+import datetime
+import sys
+
+def error():
+    print('Usage: tcalc [HHMM-HHMM]*')
+    print('Add timespans')
+    sys.exit(0)
+
+if __name__ == '__main__':
+    
+    if len(sys.argv) <= 1:
+        error()
+    
+    delta = 0
+
+    for arg in sys.argv[1:]:
+        if len(arg)!= 9:
+            error()
+            
+        start = datetime.datetime(1995,1,1,int(arg[:2]), int(arg[2:4]))
+        stop = datetime.datetime(1995,1,1, int(arg[5:7]), int(arg[7:9]))
+        delta += (stop-start).seconds
+    
+    hours = delta//3600
+    minutes = (delta//60)%60
+
+    print(f'{hours}h{minutes}min')
